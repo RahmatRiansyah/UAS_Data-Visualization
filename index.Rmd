@@ -1,0 +1,184 @@
+---
+title: "UAS DATA VISUALIZATION"
+author: "Rahmat Riansyah"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    css: style.css
+    theme: cerulean
+    highlight: zenburn
+    toc: true
+    toc_float: true
+    df_print: paged
+bibliography: references.bib
+---
+
+```{=html}
+<style>
+body{
+text-align: justify}
+</style>
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# UAS DATA VISUALIZATION
+
+**Nama Mahasiswa**    : Rahmat Riansyah  
+**NIM**               : A3202300029  
+**Deskripsi**         : Tujuan analisis untuk memahami pola dan hubungan dalam data Angka Harapan Hidup, Pendapatan per Kapita, dan faktor-faktor lainnya.
+
+# Persiapan
+Sebelum membuat sebuah program di dalam R Markdown kita harus memperhatikan beberapa yang perlu kita persiapkan untuk menunjang isi data beserta visualisasinya.
+
+## Memanggil Library
+Hal pertama yang perlu dipersiapkan adalah dengan memanggil beberapa library yang di butuhkan yaitu dengan menginstal di menu Packages dan cara memanggilnya seperti berikut.
+
+```{r}
+library(ggplot2)
+library(readr)
+library(readxl)
+library(gapminder)
+library(reshape2)
+library(gganimate)
+library(plotly)
+```
+
+## Memanggil Dataset
+Selain Library kita juga perlu memanggil Data yang akan kita gunakan dalam pembuatan visualisasi tersebut.Untuk tugas kali ini karena kita menggunakan data Excel dapat mengikuti kode dibawah ini.
+
+```{r}
+# memanggil library
+library(readxl)
+# membuat nama data dan memanggilnya sesuai nama file
+Data <- read_excel("Data.xlsx")
+# melihat data yang telah diberi nama
+View(Data)
+```
+
+# Membuat Visualisasi Data
+Setelah memanggil data yang akan kita gunakan selanjutnya menentukan grafik apa yang akan kita buat secara berbeda.Dari ujian tersebut terdapat 4 minimal visualisasi data seperti berikut:
+
+## **1. Grafik Univariate**
+Grafik univariate digunakan untuk menganalisis distribusi satu variabel tunggal. Grafik ini membantu dalam memahami pola, sebaran, dan karakteristik dari data yang dianalisis.
+
+### Deskripsi
+- **Jenis Grafik**: Histogram atau Boxplot
+- **Penjelasan**: 
+  - Menunjukkan distribusi satu variabel.
+  - Contoh: Histogram untuk menunjukkan distribusi Angka Harapan Hidup di berbagai negara.
+- **Judul**: "Distribusi Angka Harapan Hidup di Negara-Negara"
+- **Label Sumbu**:
+  - Sumbu X: "Angka Harapan Hidup"
+  - Sumbu Y: "Frekuensi"
+- **Interpretasi**: 
+  - Menjelaskan pola distribusi, seperti apakah data terdistribusi normal, ada outlier, atau pola lain yang terlihat.
+
+### Hasil Grafik
+```{r}
+# memanggil library
+library(ggplot2)
+
+# Contoh kode untuk membuat histogram
+ggplot(Data, aes(x = Angka_Harapan_Hidup)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "white") +
+  labs(title = "Distribusi Angka Harapan Hidup di Negara-Negara",
+       x = "Angka Harapan Hidup",
+       y = "Frekuensi")
+```
+
+
+## **2. Grafik Bivariate**
+Grafik bivariate digunakan untuk menganalisis hubungan antara dua variabel. Grafik ini membantu dalam mengidentifikasi pola, tren, dan korelasi antara kedua variabel.
+
+### Deskripsi
+- **Jenis Grafik**: Scatter Plot atau Bar Chart
+- **Penjelasan**: 
+  - Menunjukkan hubungan antara dua variabel.
+  - Contoh: Scatter plot antara Pendapatan per Kapita dan Angka Harapan Hidup.
+- **Judul**: "Hubungan Antara Pendapatan per Kapita dan Angka Harapan Hidup"
+- **Label Sumbu**:
+  - Sumbu X: "Pendapatan per Kapita"
+  - Sumbu Y: "Angka Harapan Hidup"
+- **Interpretasi**: 
+  - Menjelaskan apakah ada korelasi positif, negatif, atau tidak ada antara kedua variabel.
+
+### Hasil Grafik
+```{r}
+# Contoh kode untuk membuat scatter plot
+ggplot(Data, aes(x = Pendapatan_per_kapita, y = Angka_Harapan_Hidup)) +
+  geom_point(color = "red") +
+  labs(title = "Hubungan Antara Pendapatan per Kapita dan Angka Harapan Hidup",
+       x = "Pendapatan per Kapita",
+       y = "Angka Harapan Hidup")
+```
+
+## **3. Grafik Multivariate**
+Grafik multivariate digunakan untuk menganalisis hubungan antara lebih dari dua variabel. Grafik ini membantu dalam memahami interaksi dan pola yang lebih kompleks dalam data.
+
+### Deskripsi
+- **Jenis Grafik**: Heatmap atau 3D Scatter Plot
+- **Penjelasan**: 
+  - Menunjukkan hubungan antara lebih dari dua variabel.
+  - Contoh: Heatmap untuk menunjukkan Angka Harapan Hidup berdasarkan Benua dan Tahun.
+- **Judul**: "Analisis Angka Harapan Hidup Berdasarkan Benua dan Tahun"
+- **Label Sumbu**:
+  - Sumbu X: "Benua"
+  - Sumbu Y: "Tahun"
+- **Interpretasi**: 
+  - Menjelaskan pola yang muncul dari interaksi antara variabel-variabel tersebut.
+
+### Hasil Grafik
+```{r}
+# Contoh kode untuk membuat heatmap
+library(ggplot2)
+library(reshape2)
+
+# Misalkan 'data' adalah nama dataset Anda
+heatmap_data <- dcast(Data, Benua ~ Tahun, value.var = "Angka_Harapan_Hidup")
+ggplot(melt(heatmap_data), aes(x = variable, y = Benua, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "blue") +
+  labs(title = "Analisis Angka Harapan Hidup Berdasarkan Benua dan Tahun",
+       x = "Tahun",
+       y = "Benua")
+```
+
+## **4. Grafik Interaktif**
+Grafik interaktif memungkinkan pengguna untuk berinteraksi dengan data secara langsung. Ini memberikan pengalaman yang lebih mendalam dan memungkinkan eksplorasi data yang lebih fleksibel
+
+### Deskripsi
+- **Jenis Grafik**: Menggunakan Plotly atau Shiny
+- **Penjelasan**: 
+  - Memungkinkan pengguna untuk berinteraksi dengan data.
+  - Contoh: Grafik interaktif yang menunjukkan hubungan antara Jumlah Anak dan Angka Harapan Hidup berdasarkan Negara.
+- **Judul**: "Grafik Interaktif Angka Harapan Hidup dan Jumlah Anak"
+- **Label Sumbu**:
+  - Sumbu X: "Jumlah Anak"
+  - Sumbu Y: "Angka Harapan Hidup"
+- **Interpretasi**: 
+  - Menjelaskan bagaimana interaksi pengguna dapat memberikan wawasan lebih dalam tentang data.
+
+### Hasil Grafik
+```{r}
+# Contoh kode untuk membuat grafik interaktif menggunakan Plotly
+library(plotly)
+
+# Membuat grafik interaktif
+Harapan_Hidup <- plot_ly(Data, x = ~Jumlah_anak, y = ~Angka_Harapan_Hidup, type = 'scatter', mode = 'markers', 
+              marker = list(size = 10, color = 'rgba(255, 0, 0, .8)', 
+                            line = list(width = 2, color = 'rgba(0, 0, 0, .8)'))) %>%
+  layout(title = "Grafik Interaktif Angka Harapan Hidup dan Jumlah Anak",
+         xaxis = list(title = "Jumlah Anak"),
+         yaxis = list(title = "Angka Harapan Hidup"),
+         hovermode = "closest")  # Menambahkan hovermode untuk interaksi yang lebih baik
+
+# Menampilkan grafik interaktif
+Harapan_Hidup
+```
+
+# Kesimpulan
+cat("Dari analisis ini, terlihat bahwa Pendapatan per Kapita berpengaruh positif terhadap Angka Harapan Hidup. 
+Dengan meningkatnya pendapatan, angka harapan hidup juga cenderung meningkat, menunjukkan adanya hubungan yang signifikan 
+antara kedua variabel tersebut.")
