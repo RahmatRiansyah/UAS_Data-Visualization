@@ -23,16 +23,17 @@ text-align: justify}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# UAS DATA VISUALIZATION
+# Judul dan Deskripsi
 
+## Disusun Oleh
 **Nama Mahasiswa**    : Rahmat Riansyah  
 **NIM**               : A3202300029  
 **Deskripsi**         : Tujuan analisis untuk memahami pola dan hubungan dalam data Angka Harapan Hidup, Pendapatan per Kapita, dan faktor-faktor lainnya.
 
-# Persiapan
+## Persiapan
 Sebelum membuat sebuah program di dalam R Markdown kita harus memperhatikan beberapa yang perlu kita persiapkan untuk menunjang isi data beserta visualisasinya.
 
-## Memanggil Library
+### Memanggil Library
 Hal pertama yang perlu dipersiapkan adalah dengan memanggil beberapa library yang di butuhkan yaitu dengan menginstal di menu Packages dan cara memanggilnya seperti berikut.
 
 ```{r}
@@ -45,7 +46,7 @@ library(gganimate)
 library(plotly)
 ```
 
-## Memanggil Dataset
+### Memanggil Dataset
 Selain Library kita juga perlu memanggil Data yang akan kita gunakan dalam pembuatan visualisasi tersebut.Untuk tugas kali ini karena kita menggunakan data Excel dapat mengikuti kode dibawah ini.
 
 ```{r}
@@ -64,7 +65,7 @@ Setelah memanggil data yang akan kita gunakan selanjutnya menentukan grafik apa 
 Grafik univariate digunakan untuk menganalisis distribusi satu variabel tunggal. Grafik ini membantu dalam memahami pola, sebaran, dan karakteristik dari data yang dianalisis.
 
 ### Deskripsi
-- **Jenis Grafik**: Histogram atau Boxplot
+- **Jenis Grafik**: Histogram
 - **Penjelasan**: 
   - Menunjukkan distribusi satu variabel.
   - Contoh: Histogram untuk menunjukkan distribusi Angka Harapan Hidup di berbagai negara.
@@ -77,108 +78,162 @@ Grafik univariate digunakan untuk menganalisis distribusi satu variabel tunggal.
 
 ### Hasil Grafik
 ```{r}
-# memanggil library
+# Memanggil library
 library(ggplot2)
+library(readxl)
 
-# Contoh kode untuk membuat histogram
+# Membaca data dari file Excel
+Data <- read_excel("Data.xlsx")
+
+# Membuat histogram
 ggplot(Data, aes(x = Angka_Harapan_Hidup)) +
-  geom_histogram(binwidth = 1, fill = "blue", color = "white") +
+  geom_histogram(binwidth = 2, fill = "#37AFE1", color = "white") +
   labs(title = "Distribusi Angka Harapan Hidup di Negara-Negara",
        x = "Angka Harapan Hidup",
        y = "Frekuensi")
 ```
 
 
-## **2. Grafik Bivariate**
-Grafik bivariate digunakan untuk menganalisis hubungan antara dua variabel. Grafik ini membantu dalam mengidentifikasi pola, tren, dan korelasi antara kedua variabel.
+## **3. Grafik Multivariate**
+Grafik multivariate digunakan untuk menganalisis hubungan antara lebih dari dua variabel. Grafik ini membantu dalam memahami interaksi dan pola yang lebih kompleks dalam data.
 
 ### Deskripsi
-- **Jenis Grafik**: Scatter Plot atau Bar Chart
+- **Jenis Grafik**: Scatter Plot dengan Facet
 - **Penjelasan**: 
-  - Menunjukkan hubungan antara dua variabel.
-  - Contoh: Scatter plot antara Pendapatan per Kapita dan Angka Harapan Hidup.
-- **Judul**: "Hubungan Antara Pendapatan per Kapita dan Angka Harapan Hidup"
+  - Menunjukkan hubungan antara Angka Harapan Hidup, Pendapatan per Kapita, dan Benua.
+- **Judul**: "Hubungan antara Pendapatan per Kapita dan Angka Harapan Hidup Berdasarkan Benua"
 - **Label Sumbu**:
   - Sumbu X: "Pendapatan per Kapita"
   - Sumbu Y: "Angka Harapan Hidup"
 - **Interpretasi**: 
-  - Menjelaskan apakah ada korelasi positif, negatif, atau tidak ada antara kedua variabel.
+  - Menjelaskan bagaimana Pendapatan per Kapita mempengaruhi Angka Harapan Hidup dan bagaimana pola ini bervariasi antar benua.
 
 ### Hasil Grafik
 ```{r}
-# Contoh kode untuk membuat scatter plot
-ggplot(Data, aes(x = Pendapatan_per_kapita, y = Angka_Harapan_Hidup)) +
-  geom_point(color = "red") +
-  labs(title = "Hubungan Antara Pendapatan per Kapita dan Angka Harapan Hidup",
-       x = "Pendapatan per Kapita",
-       y = "Angka Harapan Hidup")
+# Memanggil library
+library(ggplot2)
+
+# Membuat scatter plot multivariate dengan facet
+ggplot(Data, aes(x = Pendapatan_per_kapita, y = Angka_Harapan_Hidup, color = Benua, size = Populasi)) +
+  geom_point(alpha = 0.7, stroke = 1.5, shape = 21, fill = "white") +  # Mengatur transparansi dan bentuk titik
+  labs(title = "Hubungan antara Pendapatan per Kapita dan Angka Harapan Hidup Berdasarkan Benua",
+       x = "Pendapatan per Kapita (USD)",
+       y = "Angka Harapan Hidup (Tahun)",
+       color = "Benua",
+       size = "Populasi") +
+  theme_minimal(base_size = 15) +  # Menggunakan tema minimal dengan ukuran font yang lebih besar
+  scale_color_brewer(palette = "Set1") +  # Menggunakan palet warna yang menarik
+  facet_wrap(~ Benua, scales = "free") +  # Memecah grafik berdasarkan Benua dengan skala bebas
+  theme(legend.position = "right", 
+        plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),  # Memusatkan dan memperbesar judul
+        axis.title = element_text(size = 14),  # Memperbesar ukuran label sumbu
+        axis.text = element_text(size = 12)) +  # Memperbesar ukuran teks sumbu
+  coord_cartesian(expand = TRUE)  # Memperluas tampilan grafik
 ```
+###Penjelasan Kode
+- **geom_point(alpha = 0.7, stroke = 1.5, shape = 21, fill = "white")**: Menambahkan titik dengan transparansi, bentuk, dan warna latar belakang yang menarik.
+- **theme_minimal(base_size = 15)**: Menggunakan tema minimal dengan ukuran font yang lebih besar untuk keterbacaan yang lebih baik.
+- **facet_wrap(~ Benua, scales = "free")**: Memecah grafik menjadi beberapa panel berdasarkan benua dengan skala bebas, memungkinkan setiap panel untuk memiliki rentang sumbu yang berbeda.
+- **theme(...)**: Menyesuaikan posisi legenda, memusatkan dan memperbesar judul, serta memperbesar ukuran label dan teks sumbu.
+- **coord_cartesian(expand = TRUE)**: Memperluas tampilan grafik untuk memberikan ruang tambahan di sekitar titik data.
+
+### Penjelasan Hasil Grafik
+- **Interaksi**: Dalam grafik ini, setiap titik mewakili sebuah negara. Warna titik menunjukkan benua negara tersebut, dan ukuran titik menunjukkan populasi negara. Ini memberikan informasi tambahan yang membantu dalam analisis.
+- **Analisis**: Dari grafik, kita dapat melihat bahwa ada kecenderungan positif antara Pendapatan per Kapita dan Angka Harapan Hidup, yang menunjukkan bahwa negara dengan Pendapatan per Kapita yang lebih tinggi cenderung memiliki Angka Harapan Hidup yang lebih tinggi. Selain itu, kita dapat melihat perbedaan antara benua-benua yang berbeda dalam hal distribusi Pendapatan per Kapita dan Angka Harapan Hidup.
 
 ## **3. Grafik Multivariate**
 Grafik multivariate digunakan untuk menganalisis hubungan antara lebih dari dua variabel. Grafik ini membantu dalam memahami interaksi dan pola yang lebih kompleks dalam data.
 
 ### Deskripsi
-- **Jenis Grafik**: Heatmap atau 3D Scatter Plot
+- **Jenis Grafik**: Heatmap
 - **Penjelasan**: 
-  - Menunjukkan hubungan antara lebih dari dua variabel.
-  - Contoh: Heatmap untuk menunjukkan Angka Harapan Hidup berdasarkan Benua dan Tahun.
+  - Menunjukkan hubungan antara Angka Harapan Hidup, Benua, dan Tahun.
 - **Judul**: "Analisis Angka Harapan Hidup Berdasarkan Benua dan Tahun"
 - **Label Sumbu**:
-  - Sumbu X: "Benua"
-  - Sumbu Y: "Tahun"
+  - Sumbu X: "Tahun"
+  - Sumbu Y: "Benua"
 - **Interpretasi**: 
-  - Menjelaskan pola yang muncul dari interaksi antara variabel-variabel tersebut.
+  - Menjelaskan pola Angka Harapan Hidup di berbagai benua dari tahun ke tahun.
 
 ### Hasil Grafik
 ```{r}
-# Contoh kode untuk membuat heatmap
+# Memanggil library
 library(ggplot2)
 library(reshape2)
 
-# Misalkan 'data' adalah nama dataset Anda
+# Mengubah data menjadi format yang sesuai untuk heatmap
 heatmap_data <- dcast(Data, Benua ~ Tahun, value.var = "Angka_Harapan_Hidup")
+
+# Membuat heatmap
 ggplot(melt(heatmap_data), aes(x = variable, y = Benua, fill = value)) +
-  geom_tile() +
-  scale_fill_gradient(low = "white", high = "blue") +
+  geom_tile(color = "white") +  # Menambahkan garis putih di antara kotak
+  scale_fill_gradient(low = "white", high = "blue", name = "Angka Harapan Hidup") +  # Mengatur gradien warna
   labs(title = "Analisis Angka Harapan Hidup Berdasarkan Benua dan Tahun",
        x = "Tahun",
-       y = "Benua")
+       y = "Benua") +
+  theme_minimal(base_size = 15) +  # Menggunakan tema minimal dengan ukuran font yang lebih besar
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),  # Memiringkan label sumbu X
+        plot.title = element_text(hjust = 0.5, size = 20, face = "bold"))  # Memusatkan dan memperbesar judul
 ```
+###Penjelasan Kode
+- **geom_point(alpha = 0.7)**: Menambahkan titik ke plot dengan transparansi untuk mengurangi tumpang tindih.
+- **labs(...)**: Menambahkan judul dan label sumbu.
+- **theme_minimal()**: Menggunakan tema minimal untuk tampilan yang bersih dan profesional.
+- **scale_color_brewer(palette = "Set1")**: Menggunakan palet warna yang menarik untuk membedakan benua.
+- **facet_wrap(~ Benua)**: Memecah grafik menjadi beberapa panel berdasarkan benua, memungkinkan perbandingan yang lebih mudah.
+- **theme(legend.position = "right")**: Menempatkan legenda di sebelah kanan untuk aksesibilitas yang lebih baik.
 
 ## **4. Grafik Interaktif**
-Grafik interaktif memungkinkan pengguna untuk berinteraksi dengan data secara langsung. Ini memberikan pengalaman yang lebih mendalam dan memungkinkan eksplorasi data yang lebih fleksibel
+Grafik interaktif memungkinkan pengguna untuk berinteraksi dengan data secara langsung. Ini memberikan pengalaman yang lebih mendalam dan memungkinkan eksplorasi data yang lebih fleksibel.
 
 ### Deskripsi
-- **Jenis Grafik**: Menggunakan Plotly atau Shiny
+- **Jenis Grafik**: Grafik Garis Interaktif
 - **Penjelasan**: 
-  - Memungkinkan pengguna untuk berinteraksi dengan data.
-  - Contoh: Grafik interaktif yang menunjukkan hubungan antara Jumlah Anak dan Angka Harapan Hidup berdasarkan Negara.
-- **Judul**: "Grafik Interaktif Angka Harapan Hidup dan Jumlah Anak"
+  - Menunjukkan tren Angka Harapan Hidup dari tahun ke tahun untuk setiap negara.
+- **Judul**: "Tren Angka Harapan Hidup dari Tahun ke Tahun"
 - **Label Sumbu**:
-  - Sumbu X: "Jumlah Anak"
+  - Sumbu X: "Tahun"
   - Sumbu Y: "Angka Harapan Hidup"
 - **Interpretasi**: 
-  - Menjelaskan bagaimana interaksi pengguna dapat memberikan wawasan lebih dalam tentang data.
+  - Menjelaskan bagaimana Angka Harapan Hidup berubah seiring waktu dan memungkinkan pengguna untuk melihat tren untuk negara tertentu.
 
 ### Hasil Grafik
 ```{r}
-# Contoh kode untuk membuat grafik interaktif menggunakan Plotly
+# Memanggil library
 library(plotly)
 
-# Membuat grafik interaktif
-Harapan_Hidup <- plot_ly(Data, x = ~Jumlah_anak, y = ~Angka_Harapan_Hidup, type = 'scatter', mode = 'markers', 
-              marker = list(size = 10, color = 'rgba(255, 0, 0, .8)', 
-                            line = list(width = 2, color = 'rgba(0, 0, 0, .8)'))) %>%
-  layout(title = "Grafik Interaktif Angka Harapan Hidup dan Jumlah Anak",
-         xaxis = list(title = "Jumlah Anak"),
+# Membuat grafik garis interaktif
+line_plot <- plot_ly(Data, 
+                      x = ~Tahun, 
+                      y = ~Angka_Harapan_Hidup, 
+                      type = 'scatter', 
+                      mode = 'lines+markers', 
+                      color = ~Negara, 
+                      text = ~paste("Negara:", Negara, "<br>Tahun:", Tahun, "<br>Angka Harapan Hidup:", Angka_Harapan_Hidup),
+                      hoverinfo = "text") %>%
+  layout(title = "Tren Angka Harapan Hidup dari Tahun ke Tahun",
+         xaxis = list(title = "Tahun", tickmode = "linear"),
          yaxis = list(title = "Angka Harapan Hidup"),
-         hovermode = "closest")  # Menambahkan hovermode untuk interaksi yang lebih baik
+         showlegend = TRUE,
+         legend = list(title = list(text = 'Negara')),
+         hovermode = "closest") %>%
+  animation_opts(frame = 100, redraw = TRUE) %>%
+  animation_slider(currentvalue = list(prefix = "Tahun: "))  # Menambahkan slider untuk tahun
 
 # Menampilkan grafik interaktif
-Harapan_Hidup
+line_plot
 ```
+### Penjelasan Kode
+- **plot_ly(...)**: Membuat grafik garis menggunakan fungsi plot_ly dari paket plotly.
+-**type = 'scatter', mode = 'lines+markers'**: Menentukan jenis grafik sebagai scatter plot dengan garis dan penanda.
+- **color = ~Negara**: Menggunakan warna yang berbeda untuk setiap negara.
+- **text = ~paste(...)**: Menambahkan informasi tambahan yang ditampilkan saat pengguna mengarahkan kursor ke titik data.
+- **hoverinfo = "text"**: Menentukan informasi yang ditampilkan saat hover.
+- **layout(...)**: Menentukan judul dan label sumbu untuk grafik.
+- **animation_opts(...)**: Menambahkan opsi animasi untuk membuat grafik lebih dinamis.
+- **animation_slider(...)**: Menambahkan slider untuk tahun, memungkinkan pengguna untuk melihat perubahan Angka Harapan Hidup dari tahun ke tahun.
 
 # Kesimpulan
-cat("Dari analisis ini, terlihat bahwa Pendapatan per Kapita berpengaruh positif terhadap Angka Harapan Hidup. 
+Dari analisis ini, terlihat bahwa Pendapatan per Kapita berpengaruh positif terhadap Angka Harapan Hidup. 
 Dengan meningkatnya pendapatan, angka harapan hidup juga cenderung meningkat, menunjukkan adanya hubungan yang signifikan 
-antara kedua variabel tersebut.")
+antara kedua variabel tersebut.
