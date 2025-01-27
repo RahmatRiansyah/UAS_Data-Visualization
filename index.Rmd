@@ -76,6 +76,7 @@ ggplot(Data, aes(x = Angka_Harapan_Hidup)) +
   theme_minimal(base_size = 15) +  # Mengubah ukuran font dasar
   theme(plot.title = element_text(hjust = 0.5))  # Memusatkan judul
 ```
+
 - **Interpretasi**: Histogram ini menunjukkan distribusi Angka Harapan Hidup di berbagai negara. Dapat dilihat bahwa sebagian besar negara memiliki Angka Harapan Hidup di bawah 70 tahun.
 
 
@@ -93,6 +94,7 @@ ggplot(Data, aes(x = Pendapatan_per_kapita, y = Angka_Harapan_Hidup)) +
   theme_minimal(base_size = 15) +  # Mengubah ukuran font dasar
   theme(plot.title = element_text(hjust = 0.5))  # Memusatkan judul
 ```
+
 - **Interpretasi**: Scatter plot ini menunjukkan hubungan antara Pendapatan per Kapita dan Angka Harapan Hidup. Ada kecenderungan bahwa negara dengan Pendapatan per Kapita yang lebih tinggi cenderung memiliki Angka Harapan Hidup yang lebih tinggi.
 
 ## **3. Grafik Multivariate**
@@ -141,6 +143,7 @@ ggplot(Data_long, aes(x = Tahun, y = Benua, fill = Angka_Harapan_Hidup)) +
   theme_minimal(base_size = 13) +  # Mengubah ukuran font dasar
   theme(plot.title = element_text(hjust = 0.5))  # Memusatkan judul
 ```
+
 - **Interpretasi**:Heatmap ini menunjukkan rata-rata Angka Harapan Hidup berdasarkan Benua dan Tahun. Dapat dilihat bahwa beberapa benua menunjukkan tren peningkatan Angka Harapan Hidup seiring berjalannya waktu.
 
 ## **4. Grafik Interaktif**

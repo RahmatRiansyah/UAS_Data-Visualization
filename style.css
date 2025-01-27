@@ -1,62 +1,67 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* style.css */
 
+/* Mengatur font dasar untuk seluruh dokumen */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f8f9fa;
-    color: #343a40;
-    padding: 20px;
+    font-family: Arial, sans-serif; /* Menggunakan font sans-serif */
+    line-height: 1.6; /* Meningkatkan jarak antar baris */
+    margin: 20px; /* Menambahkan margin di sekitar konten */
+    background-color: #f9f9f9; /* Warna latar belakang yang lembut */
 }
 
-h1, h2, h3 {
-    color: #007bff;
-    margin-bottom: 15px;
+/* Mengatur judul utama */
+h1 {
+    color: #2c3e50; /* Warna gelap untuk judul */
+    text-align: center; /* Memusatkan judul */
 }
 
+/* Mengatur subjudul */
+h2, h3 {
+    color: #2980b9; /* Warna biru untuk subjudul */
+}
+
+/* Mengatur gaya untuk paragraf */
 p {
-    margin-bottom: 15px;
+    text-align: justify; /* Meratakan teks */
+    margin-bottom: 15px; /* Menambahkan jarak bawah pada paragraf */
 }
 
+/* Mengatur gaya untuk tabel */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+    width: 100%; /* Mengatur lebar tabel */
+    border-collapse: collapse; /* Menghapus jarak antara sel */
+    margin-bottom: 20px; /* Menambahkan jarak bawah pada tabel */
 }
 
 th, td {
-    border: 1px solid #dee2e6;
-    padding: 10px;
-    text-align: left;
+    border: 1px solid #ddd; /* Menambahkan border pada sel */
+    padding: 8px; /* Menambahkan padding pada sel */
+    text-align: left; /* Mengatur teks ke kiri */
 }
 
 th {
-    background-color: #007bff;
-    color: white;
+    background-color: #2980b9; /* Warna latar belakang untuk header tabel */
+    color: white; /* Warna teks untuk header tabel */
 }
 
+/* Mengatur gaya untuk grafik */
+.plotly {
+    margin: 0 auto; /* Memusatkan grafik */
+}
+
+/* Mengatur gaya untuk tombol dan link */
 a {
-    color: #007bff;
-    text-decoration: none;
+    color: #2980b9; /* Warna biru untuk link */
+    text-decoration: none; /* Menghapus garis bawah pada link */
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Menambahkan garis bawah saat hover */
 }
 
-pre {
-    background-color: #f1f1f1;
-    border-left: 3px solid #007bff;
-    padding: 10px;
-    overflow-x: auto;
-}
-
+/* Mengatur gaya untuk footer */
 footer {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 0.9em;
-    color: #6c757d;
+    text-align: center; /* Memusatkan footer */
+    margin-top: 20px; /* Menambahkan jarak atas pada footer */
+    font-size: 0.9em; /* Mengatur ukuran font footer */
+    color: #7f8c8d; /* Warna abu-abu untuk footer */
 }
