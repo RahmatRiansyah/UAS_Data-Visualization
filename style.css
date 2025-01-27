@@ -1,67 +1,74 @@
 /* style.css */
 
-/* Mengatur font dasar untuk seluruh dokumen */
+/* Mengatur font dasar dan warna latar belakang */
 body {
-    font-family: Arial, sans-serif; /* Menggunakan font sans-serif */
-    line-height: 1.6; /* Meningkatkan jarak antar baris */
-    margin: 20px; /* Menambahkan margin di sekitar konten */
+    font-family: Arial, sans-serif; /* Menggunakan font sans-serif untuk keterbacaan */
+    line-height: 1.6; /* Meningkatkan jarak antar baris untuk keterbacaan */
     background-color: #f9f9f9; /* Warna latar belakang yang lembut */
+    color: #333; /* Warna teks yang gelap untuk kontras yang baik */
+    margin: 20px; /* Margin di sekitar konten */
 }
 
 /* Mengatur judul utama */
 h1 {
-    color: #2c3e50; /* Warna gelap untuk judul */
-    text-align: center; /* Memusatkan judul */
+    font-size: 2.5em; /* Ukuran font yang lebih besar untuk judul utama */
+    color: #007bff; /* Warna biru untuk judul utama */
+    text-align: center; /* Memusatkan judul utama */
+    margin-top: 50px; /* Margin atas untuk memberikan spasi */
+    margin-bottom: 20px; /* Margin bawah untuk memberikan spasi */
 }
 
 /* Mengatur subjudul */
 h2, h3 {
-    color: #2980b9; /* Warna biru untuk subjudul */
+    color: #0056b3; /* Warna biru yang lebih gelap untuk subjudul */
+    margin-top: 20px; /* Margin atas untuk memberikan spasi */
+    margin-bottom: 15px; /* Margin bawah untuk memberikan spasi */
 }
 
-/* Mengatur gaya untuk paragraf */
-p {
-    text-align: justify; /* Meratakan teks */
-    margin-bottom: 15px; /* Menambahkan jarak bawah pada paragraf */
+/* Mengatur daftar */
+ul {
+    margin-left: 20px; /* Margin untuk daftar */
 }
 
-/* Mengatur gaya untuk tabel */
+/* Mengatur tabel */
 table {
-    width: 100%; /* Mengatur lebar tabel */
-    border-collapse: collapse; /* Menghapus jarak antara sel */
-    margin-bottom: 20px; /* Menambahkan jarak bawah pada tabel */
+    width: 100%; /* Tabel mengambil lebar penuh */
+    border-collapse: collapse; /* Menghilangkan jarak antara sel */
+    margin: 20px 0; /* Margin di atas dan bawah tabel */
 }
 
 th, td {
-    border: 1px solid #ddd; /* Menambahkan border pada sel */
-    padding: 8px; /* Menambahkan padding pada sel */
-    text-align: left; /* Mengatur teks ke kiri */
+    border: 1px solid #ddd; /* Garis batas untuk sel tabel */
+    padding: 8px; /* Padding di dalam sel tabel */
+    text-align: left; /* Rata kiri untuk teks dalam sel */
 }
 
 th {
-    background-color: #2980b9; /* Warna latar belakang untuk header tabel */
-    color: white; /* Warna teks untuk header tabel */
+    background-color: #007bff; /* Warna latar belakang untuk header tabel */
+    color: white; /* Warna teks putih untuk header tabel */
 }
 
-/* Mengatur gaya untuk grafik */
+/* Mengatur grafik */
 .plotly {
-    margin: 0 auto; /* Memusatkan grafik */
+    margin: 20px 0; /* Margin di atas dan bawah grafik */
 }
 
-/* Mengatur gaya untuk tombol dan link */
-a {
-    color: #2980b9; /* Warna biru untuk link */
-    text-decoration: none; /* Menghapus garis bawah pada link */
-}
-
-a:hover {
-    text-decoration: underline; /* Menambahkan garis bawah saat hover */
-}
-
-/* Mengatur gaya untuk footer */
+/* Mengatur footer */
 footer {
-    text-align: center; /* Memusatkan footer */
-    margin-top: 20px; /* Menambahkan jarak atas pada footer */
-    font-size: 0.9em; /* Mengatur ukuran font footer */
-    color: #7f8c8d; /* Warna abu-abu untuk footer */
+    text-align: center; /* Memusatkan teks footer */
+    font-size: 0.9em; /* Ukuran font yang lebih kecil untuk footer */
+    color: #666; /* Warna teks abu-abu untuk footer */
+}
+
+/* Mengatur warna untuk kode R */
+pre {
+    background-color: #f4f4f4; /* Warna latar belakang untuk kode */
+    border: 1px solid #ddd; /* Garis batas untuk kode */
+    padding: 10px; /* Padding di dalam kode */
+    overflow-x: auto; /* Mengatur overflow horizontal */
+}
+
+/* Mengatur warna untuk teks dalam kode */
+code {
+    color: #d63384; /* Warna untuk teks dalam kode */
 }

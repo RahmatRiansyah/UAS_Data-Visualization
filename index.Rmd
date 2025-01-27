@@ -1,6 +1,6 @@
 ---
 title: "UAS DATA VISUALIZATION"
-author: "Rahmat Riansyah"
+author: "Rahmat Riansyah - Rekayasa Perangkat Lunak"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -18,17 +18,17 @@ bibliography: references.bib
 body{
 text-align: justify}
 </style>
+<hr style="border: 1px solid #007bff; margin: 20px 0;"/>
 ```
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-# "Analisis dan Visualisasi Data Angka Harapan Hidup serta Pendapatan per Kapita"
+# **"Analisis dan Visualisasi Data Angka Harapan Hidup serta Pendapatan per Kapita"**
 
 ## Disusun Oleh
-**Nama Mahasiswa**    : Rahmat Riansyah  
-**NIM**               : A3202300029  
-**Deskripsi**         : Tujuan analisis untuk memahami pola dan hubungan dalam data Angka Harapan Hidup, Pendapatan per Kapita, dan faktor-faktor lainnya Melalui Pendekatan Univariate, Bivariatif, Multivariate, dan Interaktif.
+**Nama**        : Rahmat Riansyah  
+**NIM**         : A3202300029  
+**Deskripsi**   : Tujuan analisis untuk memahami pola dan hubungan dalam data Angka Harapan Hidup, Pendapatan per Kapita, dan faktor-faktor lainnya Melalui Pendekatan Univariat, Bivariat, Multivariat, dan Interaktif.
 
 ## Persiapan
 Sebelum membuat sebuah program di dalam R Markdown kita harus memperhatikan beberapa yang perlu kita persiapkan untuk menunjang isi data beserta visualisasinya.
@@ -59,45 +59,47 @@ Data <- read_excel("Data.xlsx")
 View(Data)
 ```
 
-# Membuat Visualisasi Data
+# **Visualisasi Data**
 Setelah memanggil data yang akan kita gunakan selanjutnya menentukan grafik apa yang akan kita buat secara berbeda.Dari ujian tersebut terdapat 4 minimal visualisasi data seperti berikut:
 
-## **1. Grafik Univariate**
+## **1. Grafik Univariat**
 Grafik univariate digunakan untuk menganalisis distribusi satu variabel tunggal. Grafik ini membantu dalam memahami pola, sebaran, dan karakteristik dari data yang dianalisis.
 
 ### Histogram Angka Harapan Hidup
 ```{r}
 # Kode untuk histogram dengan palet warna
-ggplot(Data, aes(x = Angka_Harapan_Hidup)) +
-  geom_histogram(binwidth = 5, fill = brewer.pal(3, "Blues")[2], color = "black") +
-  labs(title = "Histogram Angka Harapan Hidup",
-       x = "Angka Harapan Hidup",
-       y = "Frekuensi") +
-  theme_minimal(base_size = 15) +  # Mengubah ukuran font dasar
-  theme(plot.title = element_text(hjust = 0.5))  # Memusatkan judul
+ggplot(Data, aes(x = Angka_Harapan_Hidup)) +  # Menggunakan ggplot untuk membuat grafik, dengan variabel Angka Harapan Hidup di sumbu x
+  geom_histogram(binwidth = 5, fill = brewer.pal(3, "Blues")[2], color = "black") +  # Membuat histogram dengan lebar bin 5, warna isi dari palet "Blues", dan garis tepi hitam
+  labs(title = "Histogram Angka Harapan Hidup",  # Menambahkan judul grafik
+       x = "Angka Harapan Hidup",  # Label sumbu x
+       y = "Frekuensi") +  # Label sumbu y
+  theme_minimal(base_size = 15) +  # Menggunakan tema minimal dengan ukuran font dasar 15
+  theme(plot.title = element_text(hjust = 0.5))  # Memusatkan judul grafik
 ```
 
 - **Interpretasi**: Histogram ini menunjukkan distribusi Angka Harapan Hidup di berbagai negara. Dapat dilihat bahwa sebagian besar negara memiliki Angka Harapan Hidup di bawah 70 tahun.
 
 
-## **2. Grafik Bivariatif**
+
+
+## **2. Grafik Bivariat**
 Grafik bivariatif digunakan untuk menganalisis hubungan antara dua variabel. Grafik ini membantu dalam mengidentifikasi pola, tren, dan korelasi antara kedua variabel.
 
 ### Pendapatan per Kapita vs Angka Harapan Hidup
 ```{r}
 # Kode untuk scatter plot dengan transparansi dan ukuran titik
-ggplot(Data, aes(x = Pendapatan_per_kapita, y = Angka_Harapan_Hidup)) +
-  geom_point(color = "#00bfff", fill = "#000080", size = 1, alpha = 0.7) +  # Mengubah warna dan menambahkan transparansi
-  labs(title = "Pendapatan per Kapita vs Angka Harapan Hidup",
-       x = "Pendapatan per Kapita",
-       y = "Angka Harapan Hidup") +
-  theme_minimal(base_size = 15) +  # Mengubah ukuran font dasar
-  theme(plot.title = element_text(hjust = 0.5))  # Memusatkan judul
+ggplot(Data, aes(x = Pendapatan_per_kapita, y = Angka_Harapan_Hidup)) +  # Menggunakan ggplot untuk membuat scatter plot dengan Pendapatan per Kapita di sumbu x dan Angka Harapan Hidup di sumbu y
+  geom_point(color = "#00bfff", fill = "#000080", size = 1, alpha = 0.7) +  # Menambahkan titik dengan warna biru, ukuran 1, dan transparansi 0.7
+  labs(title = "Pendapatan per Kapita vs Angka Harapan Hidup",  # Menambahkan judul grafik
+       x = "Pendapatan per Kapita",  # Label sumbu x
+       y = "Angka Harapan Hidup") +  # Label sumbu y
+  theme_minimal(base_size = 15) +  # Menggunakan tema minimal dengan ukuran font dasar 15
+  theme(plot.title = element_text(hjust = 0.5))  # Memusatkan judul grafik
 ```
 
 - **Interpretasi**: Scatter plot ini menunjukkan hubungan antara Pendapatan per Kapita dan Angka Harapan Hidup. Ada kecenderungan bahwa negara dengan Pendapatan per Kapita yang lebih tinggi cenderung memiliki Angka Harapan Hidup yang lebih tinggi.
 
-## **3. Grafik Multivariate**
+## **3. Grafik Multivariat**
 Grafik multivariate digunakan untuk menganalisis hubungan antara lebih dari dua variabel. Grafik ini membantu dalam memahami interaksi dan pola yang lebih kompleks dalam data.
 
 ### Heatmap Angka Harapan Hidup per Benua dan Tahun
@@ -109,39 +111,39 @@ library(reshape2)
 library(readxl)  
 
 # Membaca dataset
-Data <- read_excel("Data.xlsx")
+Data <- read_excel("Data.xlsx")  # Memanggil data dari file Excel
 
 # Memeriksa nama kolom
-colnames(Data)
+colnames(Data)  # Menampilkan nama kolom untuk memastikan data terbaca dengan benar
 
 # Menghapus spasi di sekitar nama kolom (jika ada)
-colnames(Data) <- trimws(colnames(Data))
+colnames(Data) <- trimws(colnames(Data))  # Menghapus spasi di sekitar nama kolom
 
 # Menghitung rata-rata Angka Harapan Hidup berdasarkan Benua dan Tahun
-Data_summary <- aggregate(Angka_Harapan_Hidup ~ Benua + Tahun, data = Data, FUN = mean)
+Data_summary <- aggregate(Angka_Harapan_Hidup ~ Benua + Tahun, data = Data, FUN = mean)  # Menghitung rata-rata Angka Harapan Hidup untuk setiap kombinasi Benua dan Tahun
 
 # Mengubah data menjadi format matriks
-Data_matrix <- dcast(Data_summary, Benua ~ Tahun, value.var = "Angka_Harapan_Hidup")
+Data_matrix <- dcast(Data_summary, Benua ~ Tahun, value.var = "Angka_Harapan_Hidup")  # Mengubah data summary menjadi format matriks
 
 # Mengubah data matriks menjadi format panjang (long format) untuk ggplot
-Data_long <- melt(Data_matrix, id.vars = "Benua", variable.name = "Tahun", value.name = "Angka_Harapan_Hidup")
+Data_long <- melt(Data_matrix, id.vars = "Benua", variable.name = "Tahun", value.name = "Angka_Harapan_Hidup")  # Mengubah format data untuk keperluan visualisasi
 
 # Mengonversi kolom Tahun menjadi numerik
-Data_long$Tahun <- as.numeric(as.character(Data_long$Tahun))
+Data_long$Tahun <- as.numeric(as.character(Data_long$Tahun))  # Mengonversi kolom Tahun menjadi tipe numerik
 
 # Membuat heatmap dengan palet warna yang lebih menarik
-ggplot(Data_long, aes(x = Tahun, y = Benua, fill = Angka_Harapan_Hidup)) +
-  geom_tile() +
-  scale_fill_gradientn(colors = brewer.pal(9, "YlGnBu"),  # Menggunakan palet warna dari RColorBrewer
-                       name = "Angka Harapan Hidup") +
-  labs(title = "Heatmap Angka Harapan Hidup per Benua dan Tahun",
-       x = "Tahun",
-       y = "Benua") +
+ggplot(Data_long, aes(x = Tahun, y = Benua, fill = Angka_Harapan_Hidup)) +  # Menggunakan ggplot untuk membuat heatmap dengan Tahun di sumbu x, Benua di sumbu y, dan Angka Harapan Hidup sebagai warna
+  geom_tile() +  # Menggunakan geom_tile untuk membuat heatmap
+  scale_fill_gradientn(colors = brewer.pal(9, "YlGnBu"),  # Menggunakan palet warna dari RColorBrewer untuk mengisi warna
+                       name = "Angka Harapan Hidup") +  # Menambahkan label untuk legenda
+  labs(title = "Heatmap Angka Harapan Hidup per Benua dan Tahun",  # Menambahkan judul grafik
+       x = "Tahun",  # Label sumbu x
+       y = "Benua") +  # Label sumbu y
   scale_x_continuous(breaks = seq(min(Data_long$Tahun), 
                                    max(Data_long$Tahun), 
-                                   by = 30)) +  # Mengatur label setiap 20 tahun
-  theme_minimal(base_size = 13) +  # Mengubah ukuran font dasar
-  theme(plot.title = element_text(hjust = 0.5))  # Memusatkan judul
+                                   by = 30)) +  # Mengatur label sumbu x setiap 30 tahun
+  theme_minimal(base_size = 13) +  # Menggunakan tema minimal dengan ukuran font dasar 13
+  theme(plot.title = element_text(hjust = 0.5))  # Memusatkan judul grafik
 ```
 
 - **Interpretasi**:Heatmap ini menunjukkan rata-rata Angka Harapan Hidup berdasarkan Benua dan Tahun. Dapat dilihat bahwa beberapa benua menunjukkan tren peningkatan Angka Harapan Hidup seiring berjalannya waktu.
@@ -158,22 +160,25 @@ library(dplyr)
 
 # Kode untuk grafik interaktif dengan animasi
 plot_ly(Data, 
-        x = ~Pendapatan_per_kapita, 
-        y = ~Angka_Harapan_Hidup, 
-        type = 'scatter', 
-        mode = 'markers', 
-        marker = list(color = 'rgba(0, 123, 255, 0.8)', size = 10),  # Mengubah warna titik
+        x = ~Pendapatan_per_kapita,  # Menggunakan Pendapatan per Kapita di sumbu x
+        y = ~Angka_Harapan_Hidup,  # Menggunakan Angka Harapan Hidup di sumbu y
+        type = 'scatter',  # Menentukan jenis grafik sebagai scatter plot
+        mode = 'markers',  # Menentukan mode sebagai marker
+        marker = list(color = 'rgba(0, 123, 255, 0.8)', size = 10),  # Mengatur warna dan ukuran marker
         frame = ~Tahun,  # Menambahkan frame untuk animasi berdasarkan tahun
         ids = ~Negara) %>%  # Menggunakan ID unik untuk setiap titik
-  layout(title = "Interaktif: Pendapatan per Kapita vs Angka Harapan Hidup",
-         xaxis = list(title = "Pendapatan per Kapita"),
-         yaxis = list(title = "Angka Harapan Hidup")) %>%
+  layout(title = "Interaktif: Pendapatan per Kapita vs Angka Harapan Hidup",  # Menambahkan judul grafik
+         xaxis = list(title = "Pendapatan per Kapita"),  # Label sumbu x
+         yaxis = list(title = "Angka Harapan Hidup")) %>%  # Label sumbu y
   animation_opts(frame = 100, redraw = TRUE) %>%  # Mengatur kecepatan animasi
   animation_slider(currentvalue = list(prefix = "Tahun: "))  # Menambahkan slider untuk tahun
 ```
 - **Interpretasi**: Grafik interaktif ini memungkinkan pengguna untuk menjelajahi hubungan antara Pendapatan per Kapita dan Angka Harapan Hidup. Pengguna dapat mengarahkan kursor untuk melihat detail setiap titik data, dan grafik ini juga dapat bergerak secara otomatis dari tahun ke tahun dengan menggunakan slider untuk memilih tahun secara manual.
 
-# Kesimpulan
+
+
+
+# **Kesimpulan**
 Berdasarkan visualisasi yang telah dilakukan, dapat disimpulkan bahwa:
 
 - Terdapat distribusi Angka Harapan Hidup yang bervariasi di berbagai negara, dengan sebagian besar negara memiliki Angka Harapan Hidup di bawah 70 tahun.
