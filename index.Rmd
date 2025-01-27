@@ -23,12 +23,12 @@ text-align: justify}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Judul dan Deskripsi
+# "Analisis dan Visualisasi Data Angka Harapan Hidup serta Pendapatan per Kapita"
 
 ## Disusun Oleh
 **Nama Mahasiswa**    : Rahmat Riansyah  
 **NIM**               : A3202300029  
-**Deskripsi**         : Tujuan analisis untuk memahami pola dan hubungan dalam data Angka Harapan Hidup, Pendapatan per Kapita, dan faktor-faktor lainnya.
+**Deskripsi**         : Tujuan analisis untuk memahami pola dan hubungan dalam data Angka Harapan Hidup, Pendapatan per Kapita, dan faktor-faktor lainnya Melalui Pendekatan Univariate, Bivariatif, Multivariate, dan Interaktif.
 
 ## Persiapan
 Sebelum membuat sebuah program di dalam R Markdown kita harus memperhatikan beberapa yang perlu kita persiapkan untuk menunjang isi data beserta visualisasinya.
